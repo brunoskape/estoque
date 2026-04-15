@@ -6,6 +6,16 @@ from models import Produto
 
 
 class ListaProdutos(ctk.CTkFrame):
+    COLUNAS = [
+        ("ID", 50),
+        ("Óleo", 120),
+        ("Descrição", 260),
+        ("Quantidade", 90),
+        ("Valor Unit.", 110),
+        ("Valor Total", 110),
+        ("Ações", 150),
+    ]
+
     def __init__(self, master, on_buscar, on_editar, on_excluir):
         super().__init__(master)
         self.on_buscar = on_buscar
@@ -37,9 +47,7 @@ class ListaProdutos(ctk.CTkFrame):
         header.grid(row=0, column=0, sticky="ew", padx=4, pady=(0, 8))
         header.grid_columnconfigure(2, weight=1)
 
-        colunas = ["ID", "Óleo", "Descrição", "Quantidade", "Valor Unit.", "Valor Total", "Ações"]
-        larguras = [50, 120, 260, 90, 110, 110, 150]
-        for idx, (texto, largura) in enumerate(zip(colunas, larguras, strict=False)):
+        for idx, (texto, largura) in enumerate(self.COLUNAS):
             ctk.CTkLabel(header, text=texto, width=largura, anchor="w", font=ctk.CTkFont(weight="bold")).grid(
                 row=0, column=idx, sticky="w", padx=4
             )
@@ -62,8 +70,7 @@ class ListaProdutos(ctk.CTkFrame):
                 f"R$ {produto.valor_total:.2f}",
             ]
 
-            larguras = [50, 120, 260, 90, 110, 110]
-            for idx, (texto, largura) in enumerate(zip(valores, larguras, strict=False)):
+            for idx, (texto, (_, largura)) in enumerate(zip(valores, self.COLUNAS[:6], strict=False)):
                 ctk.CTkLabel(row, text=texto, width=largura, anchor="w").grid(row=0, column=idx, sticky="w", padx=4)
 
             botoes = ctk.CTkFrame(row, fg_color="transparent")
