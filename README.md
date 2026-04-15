@@ -20,6 +20,9 @@ python main.py
 
 ## Gerar executável (PyInstaller)
 
+Instale o PyInstaller separadamente para empacotamento:
+
 ```bash
+pip install pyinstaller
 pyinstaller --onefile --windowed main.py
 ```
